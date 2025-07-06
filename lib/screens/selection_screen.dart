@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:video_editor/helpers/screen_sizes.dart';
 import 'package:video_editor/helpers/screen_transition.dart';
-import 'package:video_editor/screens/audio_editor_screen.dart';
-import 'package:video_editor/screens/video_editor_screen.dart';
+import 'package:video_editor/screens/audio_projects_screen.dart';
+import 'package:video_editor/screens/video_projects_screen.dart';
 import 'package:video_editor/widgets/custom_button.dart';
 
 class SelectionScreen extends StatelessWidget {

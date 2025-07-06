@@ -124,6 +124,23 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                             projectList[index],
                             style: const TextStyle(color: Colors.white),
                           ),
+                          trailing: IconButton(
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.redAccent,
+                            ),
+                            onPressed: () async {
+                              final prefs =
+                                  await SharedPreferences.getInstance();
+                              setState(() {
+                                projectList.removeAt(index);
+                              });
+                              await prefs.setStringList(
+                                'project_list',
+                                projectList,
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),
