@@ -21,24 +21,30 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
     final result = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Enter Project Name'),
+        backgroundColor: Colors.grey[900],
+        title: const Text(
+          'Enter Project Name',
+          style: TextStyle(color: Colors.white),
+        ),
         content: TextField(
           controller: controller,
           decoration: const InputDecoration(hintText: 'Project Name'),
           autofocus: true,
+          style: const TextStyle(color: Colors.white),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: const Text('Cancel', style: TextStyle(color: Colors.white)),
           ),
-          ElevatedButton(
+          CustomButton(
             onPressed: () {
               if (controller.text.trim().isNotEmpty) {
                 Navigator.pop(context, controller.text.trim());
               }
             },
-            child: const Text('Create'),
+            text: 'Create',
+            fontSize: 0.035,
           ),
         ],
       ),

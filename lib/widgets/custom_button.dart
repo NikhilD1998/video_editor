@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:video_editor/helpers/screen_sizes.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.onPressed, required this.text});
+  CustomButton({
+    super.key,
+    required this.onPressed,
+    required this.text,
+    this.fontSize = 0.045,
+  });
 
   final VoidCallback onPressed;
   final String text;
+  final double fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +31,7 @@ class CustomButton extends StatelessWidget {
         textAlign: TextAlign.center,
         style: TextStyle(
           color: Colors.white,
-          fontSize: ScreenSizes.width(context) * 0.045,
+          fontSize: ScreenSizes.width(context) * fontSize,
         ),
       ),
     );
