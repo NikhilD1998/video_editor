@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:video_editor/widgets/custom_button.dart';
 import 'package:video_editor/helpers/screen_sizes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 
 class VideoEditorScreen extends StatefulWidget {
   const VideoEditorScreen({super.key});
@@ -11,7 +13,8 @@ class VideoEditorScreen extends StatefulWidget {
 }
 
 class _VideoEditorScreenState extends State<VideoEditorScreen> {
-  List<String> projectList = [];
+  List<Map<String, dynamic>> projectList = [];
+  final uuid = const Uuid();
 
   Future<void> _createProject(BuildContext context) async {
     final TextEditingController controller = TextEditingController();
@@ -43,10 +46,14 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
     if (result != null && result.isNotEmpty) {
       final prefs = await SharedPreferences.getInstance();
+      final newProject = {'id': uuid.v4(), 'name': result};
       setState(() {
-        projectList.add(result);
+        projectList.add(newProject);
       });
-      await prefs.setStringList('project_list', projectList);
+      await prefs.setStringList(
+        'project_list',
+        projectList.map((p) => jsonEncode(p)).toList(),
+      );
     }
   }
 
@@ -58,9 +65,23 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
 
   Future<void> _loadProjects() async {
     final prefs = await SharedPreferences.getInstance();
+    final stored = prefs.getStringList('project_list') ?? [];
     setState(() {
-      projectList = prefs.getStringList('project_list') ?? [];
+      projectList = stored
+          .map((e) => jsonDecode(e) as Map<String, dynamic>)
+          .toList();
     });
+  }
+
+  Future<void> _deleteProject(int index) async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      projectList.removeAt(index);
+    });
+    await prefs.setStringList(
+      'project_list',
+      projectList.map((p) => jsonEncode(p)).toList(),
+    );
   }
 
   @override
@@ -121,7 +142,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                         ),
                         child: ListTile(
                           title: Text(
-                            projectList[index],
+                            projectList[index]['name'],
                             style: const TextStyle(color: Colors.white),
                           ),
                           trailing: IconButton(
@@ -129,17 +150,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                               Icons.delete,
                               color: Colors.redAccent,
                             ),
-                            onPressed: () async {
-                              final prefs =
-                                  await SharedPreferences.getInstance();
-                              setState(() {
-                                projectList.removeAt(index);
-                              });
-                              await prefs.setStringList(
-                                'project_list',
-                                projectList,
-                              );
-                            },
+                            onPressed: () => _deleteProject(index),
                           ),
                         ),
                       ),
