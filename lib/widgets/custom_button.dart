@@ -22,6 +22,7 @@ class CustomButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         text,
+        textAlign: TextAlign.center,
         style: TextStyle(
           color: Colors.white,
           fontSize: ScreenSizes.width(context) * 0.045,
