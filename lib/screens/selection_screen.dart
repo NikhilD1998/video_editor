@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:video_editor/helpers/screen_sizes.dart';
+import 'package:video_editor/helpers/screen_transition.dart';
+import 'package:video_editor/screens/audio_editor_screen.dart';
+import 'package:video_editor/screens/video_editor_screen.dart';
 import 'package:video_editor/widgets/custom_button.dart';
 
 class SelectionScreen extends StatelessWidget {
@@ -18,7 +21,6 @@ class SelectionScreen extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          // Add a semi-transparent black overlay for shadow effect
           SizedBox.expand(
             child: Container(color: Colors.black.withOpacity(0.25)),
           ),
@@ -72,13 +74,27 @@ class SelectionScreen extends StatelessWidget {
                 SizedBox(
                   width: buttonSize,
                   height: buttonSize,
-                  child: CustomButton(onPressed: () {}, text: 'Video'),
+                  child: CustomButton(
+                    onPressed: () {
+                      Navigator.of(
+                        context,
+                      ).push(screenTransition(VideoEditorScreen()));
+                    },
+                    text: 'Video',
+                  ),
                 ),
                 SizedBox(width: ScreenSizes.width(context) * 0.06),
                 SizedBox(
                   width: buttonSize,
                   height: buttonSize,
-                  child: CustomButton(onPressed: () {}, text: 'Audio'),
+                  child: CustomButton(
+                    onPressed: () {
+                      Navigator.of(
+                        context,
+                      ).push(screenTransition(AudioEditorScreen()));
+                    },
+                    text: 'Audio',
+                  ),
                 ),
               ],
             ),
