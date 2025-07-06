@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:video_editor/helpers/screen_transition.dart';
+import 'package:video_editor/screens/change_video_speed_screen.dart';
 import 'package:video_editor/screens/merge_videos_screen.dart';
 import 'package:file_picker/file_picker.dart';
 
@@ -20,6 +21,23 @@ class VideoOperationSelectionScreen extends StatelessWidget {
           MergeVideosScreen(videoPaths: paths, projectId: projectId),
         ),
       );
+    }
+  }
+
+  Future<void> _pickAndNavigateToSpeed(BuildContext context) async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.video,
+      allowMultiple: false,
+    );
+    if (result != null && result.files.isNotEmpty) {
+      final String? path = result.paths.first;
+      if (path != null) {
+        Navigator.of(context).push(
+          screenTransition(
+            ChangeVideoSpeedScreen(videoPath: path, projectId: projectId),
+          ),
+        );
+      }
     }
   }
 
@@ -61,11 +79,8 @@ class VideoOperationSelectionScreen extends StatelessWidget {
       },
       {
         'title': 'Change Video Speed',
-        'screen': PlaceholderScreen(
-          title: 'Change Video Speed',
-          projectId: projectId,
-        ),
-        'onTap': null,
+        'screen': null,
+        'onTap': (BuildContext ctx) => _pickAndNavigateToSpeed(ctx),
       },
       {
         'title': 'Transitions',
