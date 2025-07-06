@@ -19,11 +19,9 @@ class CustomButton extends StatelessWidget {
           ),
         ),
       ),
-      onPressed: () {
-        // TODO: Navigate to video screen
-      },
+      onPressed: onPressed,
       child: Text(
-        'Video',
+        text,
         style: TextStyle(
           color: Colors.white,
           fontSize: ScreenSizes.width(context) * 0.045,
