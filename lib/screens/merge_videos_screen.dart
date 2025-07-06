@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:video_editor/widgets/custom_button.dart';
 import 'dart:io';
 import 'package:video_player/video_player.dart';
+import 'package:share_plus/share_plus.dart';
 
 class MergeVideosScreen extends StatefulWidget {
   const MergeVideosScreen({
@@ -226,12 +227,37 @@ class _MergeVideosScreenState extends State<MergeVideosScreen> {
               ),
             ),
             const SizedBox(height: 24),
+            if (mergeResult != null)
+              Text(
+                mergeResult!,
+                style: TextStyle(
+                  color: mergeResult!.contains('Successful')
+                      ? Colors.green
+                      : Colors.red,
+                  fontSize: 16,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            const SizedBox(height: 24),
+            // Spacer to push the button to the bottom
+            const Spacer(),
             (_controllers.isEmpty)
                 ? const SizedBox.shrink()
                 : SizedBox(
                     width: double.infinity,
                     height: 48,
-                    child: isMerging
+                    child: (outputPath != null)
+                        ? CustomButton(
+                            onPressed: () {
+                              if (outputPath != null) {
+                                Share.shareXFiles([
+                                  XFile(outputPath!),
+                                ], text: 'Check out my merged video!');
+                              }
+                            },
+                            text: 'Share Merged Video',
+                          )
+                        : isMerging
                         ? Container(
                             decoration: BoxDecoration(
                               color: Colors.deepPurple,
@@ -248,18 +274,6 @@ class _MergeVideosScreenState extends State<MergeVideosScreen> {
                             text: 'Merge Videos',
                           ),
                   ),
-            const SizedBox(height: 24),
-            if (mergeResult != null)
-              Text(
-                mergeResult!,
-                style: TextStyle(
-                  color: mergeResult!.contains('Successful')
-                      ? Colors.green
-                      : Colors.red,
-                  fontSize: 16,
-                ),
-                textAlign: TextAlign.center,
-              ),
           ],
         ),
       ),
