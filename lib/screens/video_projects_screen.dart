@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:video_editor/helpers/screen_transition.dart';
+import 'package:video_editor/screens/video_operation_selection_screen.dart';
 import 'package:video_editor/widgets/custom_button.dart';
 import 'package:video_editor/helpers/screen_sizes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -151,6 +153,15 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                             projectList[index]['name'],
                             style: const TextStyle(color: Colors.white),
                           ),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              screenTransition(
+                                VideoOperationSelectionScreen(
+                                  projectId: projectList[index]['id'],
+                                ),
+                              ),
+                            );
+                          },
                           trailing: IconButton(
                             icon: const Icon(
                               Icons.delete,
