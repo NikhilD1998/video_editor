@@ -91,7 +91,7 @@ class SelectionScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(
                         context,
-                      ).push(screenTransition(AudioEditorScreen()));
+                      ).push(screenTransition(AudioProjectsScreen()));
                     },
                     text: 'Audio',
                   ),
