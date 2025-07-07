@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:video_editor/helpers/screen_transition.dart';
+import 'package:video_editor/screens/add_watermark_screen.dart';
 import 'package:video_editor/screens/change_video_speed_screen.dart';
 import 'package:video_editor/screens/merge_videos_screen.dart';
 import 'package:file_picker/file_picker.dart';
@@ -35,6 +36,23 @@ class VideoOperationSelectionScreen extends StatelessWidget {
         Navigator.of(context).push(
           screenTransition(
             ChangeVideoSpeedScreen(videoPath: path, projectId: projectId),
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _pickAndNavigateToWatermark(BuildContext context) async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.video,
+      allowMultiple: false,
+    );
+    if (result != null && result.files.isNotEmpty) {
+      final String? path = result.paths.first;
+      if (path != null) {
+        Navigator.of(context).push(
+          screenTransition(
+            AddWatermarkScreen(videoPath: path, projectId: projectId),
           ),
         );
       }
@@ -94,11 +112,8 @@ class VideoOperationSelectionScreen extends StatelessWidget {
       },
       {
         'title': 'Add Watermark',
-        'screen': PlaceholderScreen(
-          title: 'Add Watermark',
-          projectId: projectId,
-        ),
-        'onTap': null,
+        'screen': null,
+        'onTap': (BuildContext ctx) => _pickAndNavigateToWatermark(ctx),
       },
     ];
 
