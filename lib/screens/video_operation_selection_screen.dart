@@ -4,6 +4,7 @@ import 'package:video_editor/screens/add_watermark_screen.dart';
 import 'package:video_editor/screens/change_video_speed_screen.dart';
 import 'package:video_editor/screens/merge_videos_screen.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:video_editor/screens/split_video_screen.dart';
 
 class VideoOperationSelectionScreen extends StatelessWidget {
   const VideoOperationSelectionScreen({super.key, required this.projectId});
@@ -59,6 +60,23 @@ class VideoOperationSelectionScreen extends StatelessWidget {
     }
   }
 
+  Future<void> _pickAndNavigateToSplit(BuildContext context) async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.video,
+      allowMultiple: false,
+    );
+    if (result != null && result.files.isNotEmpty) {
+      final String? path = result.paths.first;
+      if (path != null) {
+        Navigator.of(context).push(
+          screenTransition(
+            SplitVideoScreen(videoPath: path, projectId: projectId),
+          ),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     debugPrint(
@@ -76,16 +94,13 @@ class VideoOperationSelectionScreen extends StatelessWidget {
       },
       {
         'title': 'Merge Videos',
-        'screen': null, // We'll handle this with onTap
+        'screen': null,
         'onTap': (BuildContext ctx) => _pickAndNavigateToMerge(ctx),
       },
       {
         'title': 'Split Videos',
-        'screen': PlaceholderScreen(
-          title: 'Split Videos',
-          projectId: projectId,
-        ),
-        'onTap': null,
+        'screen': null,
+        'onTap': (BuildContext ctx) => _pickAndNavigateToSplit(ctx),
       },
       {
         'title': 'Overlay Audio and Videos',
