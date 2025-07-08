@@ -3,6 +3,7 @@ import 'package:video_editor/helpers/screen_transition.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:video_editor/screens/add_music_screen.dart';
 import 'package:video_editor/screens/extract_audio_screen.dart';
+import 'package:video_editor/screens/split_audio_screen.dart';
 
 class AudioOperationSelectionScreen extends StatelessWidget {
   const AudioOperationSelectionScreen({super.key, required this.projectId});
@@ -43,6 +44,23 @@ class AudioOperationSelectionScreen extends StatelessWidget {
     }
   }
 
+  Future<void> _pickAndNavigateToSplitAudio(BuildContext context) async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.audio,
+      allowMultiple: false,
+    );
+    if (result != null && result.files.isNotEmpty) {
+      final String? path = result.paths.first;
+      if (path != null) {
+        Navigator.of(context).push(
+          screenTransition(
+            SplitAudioScreen(videoPath: path, projectId: projectId),
+          ),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> operations = [
@@ -57,17 +75,10 @@ class AudioOperationSelectionScreen extends StatelessWidget {
         'onTap': (BuildContext context) => _pickAndNavigateToAddMusic(context),
       },
       {
-        'title': 'Merge Audio Files',
-        'screen': PlaceholderScreen(
-          title: 'Merge Audio Files',
-          projectId: projectId,
-        ),
-        'onTap': null,
-      },
-      {
         'title': 'Split Audio',
-        'screen': PlaceholderScreen(title: 'Split Audio', projectId: projectId),
-        'onTap': null,
+        'screen': null,
+        'onTap': (BuildContext context) =>
+            _pickAndNavigateToSplitAudio(context),
       },
     ];
 

@@ -41,6 +41,7 @@ dependencies:
   video_player: ^2.10.0
   ffmpeg_kit_flutter_new: ^2.0.0
   share_plus: ^11.0.0
+  just_audio: ^0.10.4
 
 dev_dependencies:
   flutter_test:
