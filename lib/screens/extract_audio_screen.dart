@@ -92,34 +92,37 @@ class _ExtractAudioScreenState extends State<ExtractAudioScreen> {
         child: Column(
           children: [
             if (_controller.value.isInitialized)
-              AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    VideoPlayer(_controller),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          if (_controller.value.isPlaying) {
-                            _controller.pause();
-                          } else {
-                            _controller.play();
-                          }
-                        });
-                      },
-                      child: !_controller.value.isPlaying
-                          ? Container(
-                              color: Colors.black26,
-                              child: const Icon(
-                                Icons.play_circle_fill,
-                                color: Colors.white,
-                                size: 64,
-                              ),
-                            )
-                          : Container(color: Colors.transparent),
-                    ),
-                  ],
+              FractionallySizedBox(
+                widthFactor: 0.8,
+                child: AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      VideoPlayer(_controller),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            if (_controller.value.isPlaying) {
+                              _controller.pause();
+                            } else {
+                              _controller.play();
+                            }
+                          });
+                        },
+                        child: !_controller.value.isPlaying
+                            ? Container(
+                                color: Colors.black26,
+                                child: const Icon(
+                                  Icons.play_circle_fill,
+                                  color: Colors.white,
+                                  size: 64,
+                                ),
+                              )
+                            : Container(color: Colors.transparent),
+                      ),
+                    ],
+                  ),
                 ),
               )
             else
