@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_editor/helpers/screen_transition.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:video_editor/screens/add_music_screen.dart';
 import 'package:video_editor/screens/extract_audio_screen.dart';
 
 class AudioOperationSelectionScreen extends StatelessWidget {
@@ -25,6 +26,23 @@ class AudioOperationSelectionScreen extends StatelessWidget {
     }
   }
 
+  Future<void> _pickAndNavigateToAddMusic(BuildContext context) async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.video,
+      allowMultiple: false,
+    );
+    if (result != null && result.files.isNotEmpty) {
+      final String? path = result.paths.first;
+      if (path != null) {
+        Navigator.of(context).push(
+          screenTransition(
+            AddMusicScreen(videoPath: path, projectId: projectId),
+          ),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> operations = [
@@ -34,9 +52,9 @@ class AudioOperationSelectionScreen extends StatelessWidget {
         'onTap': (BuildContext context) => _pickAndNavigateToExtract(context),
       },
       {
-        'title': 'Trim Audio',
-        'screen': PlaceholderScreen(title: 'Trim Audio', projectId: projectId),
-        'onTap': null,
+        'title': 'Add Music',
+        'screen': null,
+        'onTap': (BuildContext context) => _pickAndNavigateToAddMusic(context),
       },
       {
         'title': 'Merge Audio Files',
@@ -49,30 +67,6 @@ class AudioOperationSelectionScreen extends StatelessWidget {
       {
         'title': 'Split Audio',
         'screen': PlaceholderScreen(title: 'Split Audio', projectId: projectId),
-        'onTap': null,
-      },
-      {
-        'title': 'Add Background Music',
-        'screen': PlaceholderScreen(
-          title: 'Add Background Music',
-          projectId: projectId,
-        ),
-        'onTap': null,
-      },
-      {
-        'title': 'Audio Fade In/Out, Volume, Mute',
-        'screen': PlaceholderScreen(
-          title: 'Audio Fade/Volume/Mute',
-          projectId: projectId,
-        ),
-        'onTap': null,
-      },
-      {
-        'title': 'Audio Waveform Visualization',
-        'screen': PlaceholderScreen(
-          title: 'Audio Waveform Visualization',
-          projectId: projectId,
-        ),
         'onTap': null,
       },
     ];
