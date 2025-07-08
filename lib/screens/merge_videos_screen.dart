@@ -53,7 +53,6 @@ class _MergeVideosScreenState extends State<MergeVideosScreen> {
       mergeResult = null;
     });
 
-    // Get the Downloads directory
     Directory? downloadsDir;
     if (Platform.isAndroid) {
       downloadsDir = Directory('/storage/emulated/0/Download');
@@ -66,14 +65,12 @@ class _MergeVideosScreenState extends State<MergeVideosScreen> {
     final output =
         '${downloadsDir!.path}/merged_${DateTime.now().millisecondsSinceEpoch}.mp4';
 
-    // Preprocess all videos to ensure they have audio
     List<String> processedPaths = [];
     for (final path in widget.videoPaths) {
       final processed = await ensureAudio(path);
       processedPaths.add(processed);
     }
 
-    // Build input arguments and filter_complex for normalization
     final inputs = processedPaths.map((path) => '-i "$path"').join(' ');
     final n = processedPaths.length;
     final filterInputs = List.generate(
@@ -113,7 +110,6 @@ class _MergeVideosScreenState extends State<MergeVideosScreen> {
     final outputPath =
         '${tempDir.path}/${DateTime.now().millisecondsSinceEpoch}_audio.mp4';
 
-    // Get duration using ffprobe
     final probeSession = await FFmpegKit.execute(
       '-v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "$inputPath"',
     );
@@ -121,7 +117,6 @@ class _MergeVideosScreenState extends State<MergeVideosScreen> {
     final durationString = probeLogs!.trim().split('\n').last;
     final duration = double.tryParse(durationString) ?? 1.0;
 
-    // Add silent audio if missing, otherwise copy as is
     final command =
         '-y -i "$inputPath" -f lavfi -t $duration -i anullsrc=channel_layout=stereo:sample_rate=44100 -shortest -c:v copy -c:a aac "$outputPath"';
     await FFmpegKit.execute(command);
@@ -130,7 +125,6 @@ class _MergeVideosScreenState extends State<MergeVideosScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // If all videos are removed, go back
     if (_controllers.isEmpty) {
       Future.microtask(() {
         if (Navigator.of(context).canPop()) Navigator.of(context).pop();
@@ -149,7 +143,6 @@ class _MergeVideosScreenState extends State<MergeVideosScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Grid at the top
             SizedBox(
               height: 200,
               child: GridView.builder(
@@ -173,7 +166,6 @@ class _MergeVideosScreenState extends State<MergeVideosScreen> {
                               child: VideoPlayer(controller),
                             )
                           : const Center(child: CircularProgressIndicator()),
-                      // Duration at bottom left
                       if (controller.value.isInitialized)
                         Positioned(
                           left: 6,
@@ -196,7 +188,6 @@ class _MergeVideosScreenState extends State<MergeVideosScreen> {
                             ),
                           ),
                         ),
-                      // Remove button at top right
                       Positioned(
                         top: 2,
                         right: 2,
@@ -239,7 +230,6 @@ class _MergeVideosScreenState extends State<MergeVideosScreen> {
                 textAlign: TextAlign.center,
               ),
             const SizedBox(height: 24),
-            // Spacer to push the button to the bottom
             const Spacer(),
             (_controllers.isEmpty)
                 ? const SizedBox.shrink()

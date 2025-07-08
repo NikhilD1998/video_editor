@@ -87,10 +87,8 @@ class _AddWatermarkScreenState extends State<AddWatermarkScreen> {
     final output =
         '${downloadsDir!.path}/watermarked_${DateTime.now().millisecondsSinceEpoch}.mp4';
 
-    // Center watermark using drawtext
     final watermarkText = _watermark!.replaceAll("'", "\\'");
     final fontPath = await ensureFontFile();
-    // If you use rootBundle to copy the asset to a writable directory, do so before this step.
 
     final command =
         '-y -i "${widget.videoPath}" -vf "drawtext=fontfile=\'$fontPath\':text=\'$watermarkText\':fontcolor=white:fontsize=36:box=1:boxcolor=black@0.5:x=(w-text_w)/2:y=(h-text_h)/2" -codec:a copy "$output"';

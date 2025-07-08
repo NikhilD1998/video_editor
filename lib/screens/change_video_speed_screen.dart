@@ -48,7 +48,6 @@ class _ChangeVideoSpeedScreenState extends State<ChangeVideoSpeedScreen> {
       _saveResult = null;
     });
 
-    // Save to Downloads folder
     Directory? downloadsDir;
     if (Platform.isAndroid) {
       downloadsDir = Directory('/storage/emulated/0/Download');
@@ -60,10 +59,6 @@ class _ChangeVideoSpeedScreenState extends State<ChangeVideoSpeedScreen> {
 
     final output =
         '${downloadsDir!.path}/speed_${_speed}_${DateTime.now().millisecondsSinceEpoch}.mp4';
-
-    // FFmpeg command to change speed
-    // For video: setpts=PTS/<speed>
-    // For audio: atempo=<speed> (but only supports 0.5-2.0, so chain if needed)
     String atempoFilter;
     double remaining = _speed;
     List<String> atempoFilters = [];

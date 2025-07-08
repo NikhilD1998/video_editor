@@ -67,7 +67,6 @@ class _AddMusicScreenState extends State<AddMusicScreen> {
     final output =
         '${downloadsDir!.path}/with_music_${DateTime.now().millisecondsSinceEpoch}.mp4';
 
-    // Replace original audio with selected audio
     final command =
         '-y -i "${widget.videoPath}" -i "$_audioPath" -c:v copy -map 0:v:0 -map 1:a:0 -shortest "$output"';
 
@@ -93,7 +92,11 @@ class _AddMusicScreenState extends State<AddMusicScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Add Background Music')),
+      appBar: AppBar(
+        title: const Text('Add Music'),
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+      ),
       backgroundColor: Colors.black,
       body: Center(
         child: SingleChildScrollView(
