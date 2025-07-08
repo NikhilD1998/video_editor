@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:video_editor/helpers/screen_transition.dart';
-import 'package:video_editor/screens/change_video_speed_screen.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:video_editor/screens/extract_audio_screen.dart';
 
 class AudioOperationSelectionScreen extends StatelessWidget {
   const AudioOperationSelectionScreen({super.key, required this.projectId});
 
   final String projectId;
 
-  Future<void> _pickAndNavigateToSpeed(BuildContext context) async {
+  Future<void> _pickAndNavigateToExtract(BuildContext context) async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.video,
       allowMultiple: false,
@@ -18,7 +18,7 @@ class AudioOperationSelectionScreen extends StatelessWidget {
       if (path != null) {
         Navigator.of(context).push(
           screenTransition(
-            ChangeVideoSpeedScreen(videoPath: path, projectId: projectId),
+            ExtractAudioScreen(videoPath: path, projectId: projectId),
           ),
         );
       }
@@ -27,17 +27,28 @@ class AudioOperationSelectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(
-      'Navigated to AudioOperationSelectionScreen with id: $projectId',
-    );
-
     final List<Map<String, dynamic>> operations = [
       {
         'title': 'Extract Audio',
+        'screen': null,
+        'onTap': (BuildContext context) => _pickAndNavigateToExtract(context),
+      },
+      {
+        'title': 'Trim Audio',
+        'screen': PlaceholderScreen(title: 'Trim Audio', projectId: projectId),
+        'onTap': null,
+      },
+      {
+        'title': 'Merge Audio Files',
         'screen': PlaceholderScreen(
-          title: 'Extract Audio',
+          title: 'Merge Audio Files',
           projectId: projectId,
         ),
+        'onTap': null,
+      },
+      {
+        'title': 'Split Audio',
+        'screen': PlaceholderScreen(title: 'Split Audio', projectId: projectId),
         'onTap': null,
       },
       {
