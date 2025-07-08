@@ -25,8 +25,12 @@ class _SplashScreenState extends State<SplashScreen> {
     return const Scaffold(
       body: Center(
         child: Text(
-          'Welcome to Video Editor',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          'Welcome to\nVideo Editor',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
       ),
     );

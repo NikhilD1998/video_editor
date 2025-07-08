@@ -86,7 +86,11 @@ class _SplitVideoScreenState extends State<SplitVideoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Split Video')),
+      appBar: AppBar(
+        title: const Text('Split Video'),
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: _controller.value.isInitialized
@@ -102,7 +106,7 @@ class _SplitVideoScreenState extends State<SplitVideoScreen> {
                   const SizedBox(height: 24),
                   Text(
                     'Select start and end time (seconds):',
-                    style: const TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16, color: Colors.white),
                   ),
                   RangeSlider(
                     min: 0.0,
@@ -124,8 +128,14 @@ class _SplitVideoScreenState extends State<SplitVideoScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Start: ${_start.toStringAsFixed(1)}s'),
-                      Text('End: ${_end.toStringAsFixed(1)}s'),
+                      Text(
+                        'Start: ${_start.toStringAsFixed(1)}s',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Text(
+                        'End: ${_end.toStringAsFixed(1)}s',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 24),

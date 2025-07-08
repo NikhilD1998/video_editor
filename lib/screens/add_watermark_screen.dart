@@ -141,8 +141,9 @@ class _AddWatermarkScreenState extends State<AddWatermarkScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text('Add Watermark'),
         backgroundColor: Colors.black,
-        iconTheme: IconThemeData(color: Colors.white),
+        foregroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

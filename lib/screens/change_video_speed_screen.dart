@@ -106,8 +106,9 @@ class _ChangeVideoSpeedScreenState extends State<ChangeVideoSpeedScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        title: const Text('Change Video Speed'),
         backgroundColor: Colors.black,
-        iconTheme: IconThemeData(color: Colors.white),
+        foregroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
