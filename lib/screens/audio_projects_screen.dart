@@ -6,7 +6,6 @@ import 'package:uuid/uuid.dart';
 import 'package:video_editor/helpers/screen_sizes.dart';
 import 'package:video_editor/helpers/screen_transition.dart';
 import 'package:video_editor/screens/audio_operation_selection_screen.dart';
-import 'package:video_editor/screens/video_operation_selection_screen.dart';
 import 'package:video_editor/widgets/custom_button.dart';
 
 class AudioProjectsScreen extends StatefulWidget {
