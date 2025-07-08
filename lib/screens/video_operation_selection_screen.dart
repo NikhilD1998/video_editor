@@ -85,14 +85,6 @@ class VideoOperationSelectionScreen extends StatelessWidget {
 
     final List<Map<String, dynamic>> operations = [
       {
-        'title': 'Timeline Reordering',
-        'screen': PlaceholderScreen(
-          title: 'Timeline Reordering',
-          projectId: projectId,
-        ),
-        'onTap': null,
-      },
-      {
         'title': 'Merge Videos',
         'screen': null,
         'onTap': (BuildContext ctx) => _pickAndNavigateToMerge(ctx),
@@ -102,29 +94,13 @@ class VideoOperationSelectionScreen extends StatelessWidget {
         'screen': null,
         'onTap': (BuildContext ctx) => _pickAndNavigateToSplit(ctx),
       },
-      {
-        'title': 'Overlay Audio and Videos',
-        'screen': PlaceholderScreen(
-          title: 'Overlay Audio and Videos',
-          projectId: projectId,
-        ),
-        'onTap': null,
-      },
+
       {
         'title': 'Change Video Speed',
         'screen': null,
         'onTap': (BuildContext ctx) => _pickAndNavigateToSpeed(ctx),
       },
-      {
-        'title': 'Transitions',
-        'screen': PlaceholderScreen(title: 'Transitions', projectId: projectId),
-        'onTap': null,
-      },
-      {
-        'title': 'Filters',
-        'screen': PlaceholderScreen(title: 'Filters', projectId: projectId),
-        'onTap': null,
-      },
+
       {
         'title': 'Add Watermark',
         'screen': null,

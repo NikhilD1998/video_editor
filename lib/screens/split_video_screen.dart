@@ -92,9 +92,12 @@ class _SplitVideoScreenState extends State<SplitVideoScreen> {
         child: _controller.value.isInitialized
             ? Column(
                 children: [
-                  AspectRatio(
-                    aspectRatio: _controller.value.aspectRatio,
-                    child: VideoPlayer(_controller),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    child: AspectRatio(
+                      aspectRatio: _controller.value.aspectRatio,
+                      child: VideoPlayer(_controller),
+                    ),
                   ),
                   const SizedBox(height: 24),
                   Text(

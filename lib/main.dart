@@ -17,9 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.black,
         colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
-        textTheme: GoogleFonts.interTextTheme(
-          Theme.of(context).textTheme,
-        ), // Set Inter globally
+        textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme),
       ),
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),

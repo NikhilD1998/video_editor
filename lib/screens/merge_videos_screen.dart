@@ -78,7 +78,7 @@ class _MergeVideosScreenState extends State<MergeVideosScreen> {
     final n = processedPaths.length;
     final filterInputs = List.generate(
       n,
-      (i) => '[${i}:v]scale=1280:720,fps=30[v$i];',
+      (i) => '[${i}:v]scale=1280:720,setsar=1,fps=30[v$i];',
     ).join();
     final filterStreams = List.generate(n, (i) => '[v$i][${i}:a]').join();
     final filter = '$filterInputs$filterStreams concat=n=$n:v=1:a=1 [v][a]';
