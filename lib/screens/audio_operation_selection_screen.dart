@@ -1,30 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:video_editor/helpers/screen_transition.dart';
-import 'package:video_editor/screens/add_watermark_screen.dart';
 import 'package:video_editor/screens/change_video_speed_screen.dart';
-import 'package:video_editor/screens/merge_videos_screen.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:video_editor/screens/split_video_screen.dart';
 
 class AudioOperationSelectionScreen extends StatelessWidget {
   const AudioOperationSelectionScreen({super.key, required this.projectId});
 
   final String projectId;
-
-  Future<void> _pickAndNavigateToMerge(BuildContext context) async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.video,
-      allowMultiple: true,
-    );
-    if (result != null && result.files.isNotEmpty) {
-      final List<String> paths = result.paths.whereType<String>().toList();
-      Navigator.of(context).push(
-        screenTransition(
-          MergeVideosScreen(videoPaths: paths, projectId: projectId),
-        ),
-      );
-    }
-  }
 
   Future<void> _pickAndNavigateToSpeed(BuildContext context) async {
     final result = await FilePicker.platform.pickFiles(
@@ -37,40 +19,6 @@ class AudioOperationSelectionScreen extends StatelessWidget {
         Navigator.of(context).push(
           screenTransition(
             ChangeVideoSpeedScreen(videoPath: path, projectId: projectId),
-          ),
-        );
-      }
-    }
-  }
-
-  Future<void> _pickAndNavigateToWatermark(BuildContext context) async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.video,
-      allowMultiple: false,
-    );
-    if (result != null && result.files.isNotEmpty) {
-      final String? path = result.paths.first;
-      if (path != null) {
-        Navigator.of(context).push(
-          screenTransition(
-            AddWatermarkScreen(videoPath: path, projectId: projectId),
-          ),
-        );
-      }
-    }
-  }
-
-  Future<void> _pickAndNavigateToSplit(BuildContext context) async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.video,
-      allowMultiple: false,
-    );
-    if (result != null && result.files.isNotEmpty) {
-      final String? path = result.paths.first;
-      if (path != null) {
-        Navigator.of(context).push(
-          screenTransition(
-            SplitVideoScreen(videoPath: path, projectId: projectId),
           ),
         );
       }
