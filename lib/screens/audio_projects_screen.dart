@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'package:video_editor/helpers/screen_sizes.dart';
 import 'package:video_editor/helpers/screen_transition.dart';
+import 'package:video_editor/screens/audio_operation_selection_screen.dart';
 import 'package:video_editor/screens/video_operation_selection_screen.dart';
 import 'package:video_editor/widgets/custom_button.dart';
 
@@ -157,7 +158,7 @@ class _AudioProjectsScreenState extends State<AudioProjectsScreen> {
                           onTap: () {
                             Navigator.of(context).push(
                               screenTransition(
-                                VideoOperationSelectionScreen(
+                                AudioOperationSelectionScreen(
                                   projectId: projectList[index]['id'],
                                 ),
                               ),

@@ -85,57 +85,43 @@ class AudioOperationSelectionScreen extends StatelessWidget {
 
     final List<Map<String, dynamic>> operations = [
       {
-        'title': 'Timeline Reordering',
+        'title': 'Extract Audio',
         'screen': PlaceholderScreen(
-          title: 'Timeline Reordering',
+          title: 'Extract Audio',
           projectId: projectId,
         ),
         'onTap': null,
       },
       {
-        'title': 'Merge Videos',
-        'screen': null,
-        'onTap': (BuildContext ctx) => _pickAndNavigateToMerge(ctx),
-      },
-      {
-        'title': 'Split Videos',
-        'screen': null,
-        'onTap': (BuildContext ctx) => _pickAndNavigateToSplit(ctx),
-      },
-      {
-        'title': 'Overlay Audio and Videos',
+        'title': 'Add Background Music',
         'screen': PlaceholderScreen(
-          title: 'Overlay Audio and Videos',
+          title: 'Add Background Music',
           projectId: projectId,
         ),
         'onTap': null,
       },
       {
-        'title': 'Change Video Speed',
-        'screen': null,
-        'onTap': (BuildContext ctx) => _pickAndNavigateToSpeed(ctx),
-      },
-      {
-        'title': 'Transitions',
-        'screen': PlaceholderScreen(title: 'Transitions', projectId: projectId),
+        'title': 'Audio Fade In/Out, Volume, Mute',
+        'screen': PlaceholderScreen(
+          title: 'Audio Fade/Volume/Mute',
+          projectId: projectId,
+        ),
         'onTap': null,
       },
       {
-        'title': 'Filters',
-        'screen': PlaceholderScreen(title: 'Filters', projectId: projectId),
+        'title': 'Audio Waveform Visualization',
+        'screen': PlaceholderScreen(
+          title: 'Audio Waveform Visualization',
+          projectId: projectId,
+        ),
         'onTap': null,
-      },
-      {
-        'title': 'Add Watermark',
-        'screen': null,
-        'onTap': (BuildContext ctx) => _pickAndNavigateToWatermark(ctx),
       },
     ];
 
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text('Select Operation'),
+        title: const Text('Select Audio Operation'),
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
         elevation: 0,
